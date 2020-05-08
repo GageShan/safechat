@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gageshan.safechat.mapper.MyFriendsMapper" >
+
+    <select id="queryFriendsByUserId" resultType="com.gageshan.safechat.model.User">
+        select
+            u.userId as userId,
+            u.username as username,
+            u.avatarUrl as avatarUrl
+        from friends f
+        left join user u
+        on f.friendUserId = u.userId
+        where f.myUserId = #{userId}
+    </select>
+
+    <insert id="insert">
+        insert into friends (id, myUserId, friendUserId)
+        values (#{id},#{userId},#{friendId})
+    </insert>
+</mapper>

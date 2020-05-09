@@ -41,11 +41,14 @@ public class ChatController {
     public ResponseJson getUserInfo(HttpSession httpSession) {
         String userId = (String) httpSession.getAttribute(ConstantEnum.USER_TOKEN.STATUS);
         User user = userService.queryUserByUserId(userId);
+        if(user == null) {
+            return new ResponseJson().error("用户尚未登录");
+        }
         UserDTO userDTO = new UserDTO();
+
         BeanUtils.copyProperties(user,userDTO);
         userDTO.setFriendList(myFriendsService.queryFriendsByUserId(userId));
         logger.info(userDTO.toString());
-        logger.info(UserRef.onlineUserMap.toString());
         return new ResponseJson().success().setData("userInfo",userDTO);
     }
 }

@@ -1,6 +1,7 @@
 package com.gageshan.safechat.service;
 
 import com.gageshan.safechat.mapper.MyFriendsMapper;
+import com.gageshan.safechat.model.MyFriends;
 import com.gageshan.safechat.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,5 +22,13 @@ public class MyFriendsService {
 
     public void insert(String id, String userId, String friendId) {
         myFriendsMapper.insert(id,userId,friendId);
+    }
+
+    public boolean isFriend(String userId, String friendId) {
+        MyFriends myFriends = myFriendsMapper.isFriend(userId,friendId);
+        if(myFriends == null) {
+            return false;
+        }
+        return true;
     }
 }

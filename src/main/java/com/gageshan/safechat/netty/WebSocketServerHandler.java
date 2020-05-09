@@ -1,6 +1,7 @@
 package com.gageshan.safechat.netty;
 
 import com.alibaba.fastjson.JSONObject;
+import com.gageshan.safechat.enums.ChatType;
 import com.gageshan.safechat.service.ChatService;
 import com.gageshan.safechat.utils.ResponseJson;
 import io.netty.channel.ChannelHandler;
@@ -75,22 +76,19 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<WebSocke
             return;
         }
         String type = (String)jsonObject.get("type");
-        if("REGISTER".equals(type)) {
-//            if(chatService == null) {
-//                System.out.println("chatService============null");
-//            }
-//            logger.info(chatService.toString());
+        if(ChatType.REGISTER.STATUS.equals(type)) {
             chatService.register(jsonObject,ctx);
             logger.info("登录" + UserRef.onlineUserMap.toString());
-//            return;
-        } else if("SINGLE_SENDING".equals(type)) {
+        } else if(ChatType.SINGLE_SENDING.STATUS.equals(type)) {
             chatService.singleSend(jsonObject,ctx);
-        } else if("GROUP_SENDING".equals(type)) {
+        } else if(ChatType.GROUP_SENDING.STATUS.equals(type)) {
             chatService.groupSend(jsonObject,ctx);
-        } else if("FILE_MSG_SINGLE_SENDING".equals(type)) {
+        } else if(ChatType.FILE_MSG_SINGLE_SENDING.STATUS.equals(type)) {
             //文件上传
-        } else if("FILE_MSG_GROUP_SENDING".equals(type)) {
+        } else if(ChatType.FILE_MSG_GROUP_SENDING.STATUS.equals(type)) {
             //文件群组上传
+        } else if(ChatType.KEEPALIVE.STATUS.equals(type)){
+            logger.info("收到来自channel为[" + ctx.channel().id().asShortText() + "]的心跳包...");
         } else {
             chatService.typeError(ctx);
         }

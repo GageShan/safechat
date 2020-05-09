@@ -14,7 +14,10 @@
     </insert>
 
     <select id="queryUserByUserId" resultType="com.gageshan.safechat.model.User">
-        select * from user
+        select userId as userId,
+                username as username,
+                avatarUrl as avatarUrl
+        from user
         where userId = #{userId}
     </select>
 </mapper>

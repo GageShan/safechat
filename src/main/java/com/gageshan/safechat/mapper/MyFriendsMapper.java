@@ -1,5 +1,6 @@
 package com.gageshan.safechat.mapper;
 
+import com.gageshan.safechat.model.MyFriends;
 import com.gageshan.safechat.model.User;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -13,4 +14,6 @@ public interface MyFriendsMapper {
     List<User> queryFriendsByUserId(String userId);
 
     void insert(String id, String userId, String friendId);
+
+    MyFriends isFriend(String userId, String friendId);
 }

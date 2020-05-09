@@ -17,4 +17,9 @@
         insert into friends (id, myUserId, friendUserId)
         values (#{id},#{userId},#{friendId})
     </insert>
+
+    <select id="isFriend" resultType="com.gageshan.safechat.model.MyFriends">
+        select * from friends
+        where myUserId = #{userId} and friendUserId = #{friendId}
+    </select>
 </mapper>
